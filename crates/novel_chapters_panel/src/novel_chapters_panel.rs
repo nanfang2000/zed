@@ -108,9 +108,28 @@ impl NovelChaptersPanel {
         cx: AsyncWindowContext,
     ) -> Task<Result<Entity<Self>>> {
         cx.spawn(async move |cx| {
-            workspace.update(cx, |workspace, cx| {
+            let panel = workspace.update(cx, |workspace, cx| {
                 cx.new(|cx| NovelChaptersPanel::new(workspace, cx))
-            })
+            })?;
+
+            // Try to detect and load novel project
+            let project_path = workspace.update(cx, |workspace, app_cx| {
+                let project = workspace.project();
+                let worktrees = project.read(app_cx).visible_worktrees(app_cx);
+                if let Some(first_worktree) = worktrees.into_iter().next() {
+                    Some(first_worktree.read(app_cx).abs_path().to_string_lossy().into_owned())
+                } else {
+                    None
+                }
+            }).ok().flatten();
+
+            if let Some(path) = project_path {
+                let _ = panel.update(cx, |panel, cx| {
+                    panel.load_project(PathBuf::from(path), cx);
+                });
+            }
+
+            Ok(panel)
         })
     }
 
@@ -182,8 +201,12 @@ impl NovelChaptersPanel {
     /// Create a new chapter
     fn create_chapter(&mut self, _: &NewChapter, _window: &mut Window, cx: &mut Context<Self>) {
         let default_volume_id = match &self.project {
-            Some(p) => p.volumes.first().map(|v| v.id.clone()).unwrap_or_default(),
-            None => return,
+            Some(p) => p.volumes.first().map(|v| v.id.clone()).unwrap_or_else(|| {
+                // Create default volume if none exists
+                let new_volume_id = VolumeId(uuid::Uuid::new_v4());
+                new_volume_id
+            }),
+            None => VolumeId(uuid::Uuid::new_v4()),
         };
 
         if let Some(ref mut project) = self.project {
