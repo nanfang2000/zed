@@ -56,6 +56,8 @@ use paths::{
 };
 use project::{DirectoryLister, DisableAiSettings, ProjectItem};
 use project_panel::ProjectPanel;
+use novel_chapters_panel::NovelChaptersPanel;
+use novel_ai_panel::NovelAIPanel;
 use prompt_store::PromptBuilder;
 use quick_action_bar::QuickActionBar;
 use recent_projects::open_remote_project;
@@ -649,6 +651,8 @@ fn initialize_panels(
 ) {
     cx.spawn_in(window, async move |workspace_handle, cx| {
         let project_panel = ProjectPanel::load(workspace_handle.clone(), cx.clone());
+        let novel_chapters_panel = NovelChaptersPanel::load(workspace_handle.clone(), cx.clone());
+        let novel_ai_panel = NovelAIPanel::load(workspace_handle.clone(), cx.clone());
         let outline_panel = OutlinePanel::load(workspace_handle.clone(), cx.clone());
         let terminal_panel = TerminalPanel::load(workspace_handle.clone(), cx.clone());
         let git_panel = GitPanel::load(workspace_handle.clone(), cx.clone());
@@ -677,6 +681,8 @@ fn initialize_panels(
 
         futures::join!(
             add_panel_when_ready(project_panel, workspace_handle.clone(), cx.clone()),
+            add_panel_when_ready(novel_chapters_panel, workspace_handle.clone(), cx.clone()),
+            add_panel_when_ready(novel_ai_panel, workspace_handle.clone(), cx.clone()),
             add_panel_when_ready(outline_panel, workspace_handle.clone(), cx.clone()),
             add_panel_when_ready(terminal_panel, workspace_handle.clone(), cx.clone()),
             add_panel_when_ready(git_panel, workspace_handle.clone(), cx.clone()),

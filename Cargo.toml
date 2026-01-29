@@ -122,6 +122,9 @@ members = [
     "crates/net",
     "crates/node_runtime",
     "crates/notifications",
+    "crates/novel_chapter",
+    "crates/novel_chapters_panel",
+    "crates/novel_ai_panel",
     "crates/ollama",
     "crates/onboarding",
     "crates/open_ai",
@@ -363,6 +366,9 @@ nc = { path = "crates/nc" }
 net = { path = "crates/net" }
 node_runtime = { path = "crates/node_runtime" }
 notifications = { path = "crates/notifications" }
+novel_chapter = { path = "crates/novel_chapter" }
+novel_chapters_panel = { path = "crates/novel_chapters_panel" }
+novel_ai_panel = { path = "crates/novel_ai_panel" }
 ollama = { path = "crates/ollama" }
 onboarding = { path = "crates/onboarding" }
 open_ai = { path = "crates/open_ai" }

@@ -87,7 +87,7 @@ impl PlatformDispatcher for MacDispatcher {
 
         unsafe {
             dispatch_async_f(
-                dispatch_get_global_queue(queue_priority, 0),
+                dispatch_get_global_queue(queue_priority as isize, 0),
                 context,
                 Some(trampoline as unsafe extern "C" fn(*mut c_void)),
             );

@@ -10688,6 +10688,76 @@ version = "2.0.0"
 source = "git+https://github.com/zed-industries/notify.git?rev=6c550ac3c56cbd143c57ea6390e197af9d790908#6c550ac3c56cbd143c57ea6390e197af9d790908"
 
 [[package]]
+name = "novel_ai_panel"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "collections",
+ "editor",
+ "futures 0.3.31",
+ "gpui",
+ "language_model",
+ "menu",
+ "novel_chapter",
+ "panel",
+ "project",
+ "schemars",
+ "serde",
+ "serde_json",
+ "settings",
+ "theme",
+ "ui",
+ "util",
+ "workspace",
+ "zed_actions",
+]
+
+[[package]]
+name = "novel_chapter"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "collections",
+ "fs",
+ "gpui",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "tokio",
+ "util",
+ "uuid",
+]
+
+[[package]]
+name = "novel_chapters_panel"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "collections",
+ "db",
+ "editor",
+ "file_icons",
+ "futures 0.3.31",
+ "gpui",
+ "log",
+ "menu",
+ "novel_chapter",
+ "panel",
+ "project",
+ "schemars",
+ "serde",
+ "serde_json",
+ "settings",
+ "theme",
+ "ui",
+ "util",
+ "uuid",
+ "workspace",
+ "zed_actions",
+]
+
+[[package]]
 name = "ntapi"
 version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -21067,6 +21137,9 @@ dependencies = [
  "nc",
  "node_runtime",
  "notifications",
+ "novel_ai_panel",
+ "novel_chapter",
+ "novel_chapters_panel",
  "onboarding",
  "outline",
  "outline_panel",
